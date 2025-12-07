@@ -30,8 +30,9 @@ use BaksDev\Auth\Vk\Entity\Event\AccountVkEvent;
 use BaksDev\Auth\Vk\Messenger\AccountVkMessage;
 use BaksDev\Core\Entity\AbstractHandler;
 use BaksDev\Users\User\Entity\User;
+use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
 
-
+#[Autoconfigure(public: true)]
 final class VkAuthHandler extends AbstractHandler
 {
     /** @see */
@@ -46,7 +47,6 @@ final class VkAuthHandler extends AbstractHandler
         $AccountVk->setId($user->getId());
 
         $this->preEventPersistOrUpdate($AccountVk, new AccountVkEvent());
-
 
         /** Валидация всех объектов */
         if($this->validatorCollection->isInvalid())

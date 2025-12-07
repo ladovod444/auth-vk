@@ -56,6 +56,8 @@ final class AuthVkPublicControllerTest extends WebTestCase
             $client->loginUser($usr, 'user');
             $client->request('GET', self::URL);
 
+            self::assertResponseIsSuccessful();
+
         }
 
         self::assertTrue(true);
@@ -78,11 +80,12 @@ final class AuthVkPublicControllerTest extends WebTestCase
             $client->loginUser($usr, 'user');
             $client->request('GET', self::URL);
 
-            self::assertResponseStatusCodeSame(302);
+            self::assertResponseIsSuccessful();
         }
 
         self::assertTrue(true);
     }
+
 
     /**
      * Доступ по роли ROLE_USER
@@ -101,7 +104,7 @@ final class AuthVkPublicControllerTest extends WebTestCase
             $client->loginUser($usr, 'user');
             $client->request('GET', self::URL);
 
-            self::assertResponseStatusCodeSame(302);
+            self::assertResponseIsSuccessful();
         }
 
         self::assertTrue(true);

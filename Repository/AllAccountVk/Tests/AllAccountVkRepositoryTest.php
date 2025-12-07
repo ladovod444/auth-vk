@@ -5,6 +5,8 @@ namespace BaksDev\Auth\Vk\Repository\AllAccountVk\Tests;
 use BaksDev\Auth\Vk\Repository\AllAccountVk\AllAccountVkInterface;
 use BaksDev\Auth\Vk\Repository\AllAccountVk\AllAccountVkResult;
 use PHPUnit\Framework\Attributes\Group;
+use ReflectionClass;
+use ReflectionMethod;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\DependencyInjection\Attribute\When;
 
@@ -19,9 +21,22 @@ class AllAccountVkRepositoryTest extends KernelTestCase
 
         $results = $AllAccountVkInterface->findAll();
 
-        foreach($results as $result)
+        foreach($results->getData() as $AllAccountVkResult)
         {
-            $this->assertInstanceOf(AllAccountVkResult::class, $result);
+            // Вызываем все геттеры
+            $reflectionClass = new ReflectionClass(AllAccountVkResult::class);
+            $methods = $reflectionClass->getMethods(ReflectionMethod::IS_PUBLIC);
+
+            foreach($methods as $method)
+            {
+                // Методы без аргументов
+                if($method->getNumberOfParameters() === 0)
+                {
+                    // Вызываем метод
+                    $data = $method->invoke($AllAccountVkResult);
+                    // dump($data);
+                }
+            }
         }
 
         //        dd($results);

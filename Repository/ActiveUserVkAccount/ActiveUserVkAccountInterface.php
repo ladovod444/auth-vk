@@ -24,7 +24,9 @@
 namespace BaksDev\Auth\Vk\Repository\ActiveUserVkAccount;
 
 use BaksDev\Auth\Vk\Type\AuthVkIdentifier\VkIdentifier;
+use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
 
+#[Autoconfigure(public: true)]
 interface ActiveUserVkAccountInterface
 {
     public function findByVkId(VkIdentifier $vkid): ActiveUserVkAccountResult|false;

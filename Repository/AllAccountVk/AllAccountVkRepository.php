@@ -71,7 +71,7 @@ final class AllAccountVkRepository implements AllAccountVkInterface
                 'vk',
                 AccountVkEvent::class,
                 'vk_event',
-                'vk_event.id = vk.event'
+                'vk_event.id = vk.event',
             );
 
         $dbal
@@ -80,7 +80,7 @@ final class AllAccountVkRepository implements AllAccountVkInterface
                 'vk',
                 AccountVkActive::class,
                 'vk_active',
-                'vk_active.event = vk.event'
+                'vk_active.event = vk.event',
             );
 
         $dbal
@@ -89,7 +89,7 @@ final class AllAccountVkRepository implements AllAccountVkInterface
                 'vk',
                 AccountVkInvariable::class,
                 'vk_invariable',
-                'vk_invariable.event = vk.event'
+                'vk_invariable.event = vk.event',
             );
 
         $dbal
@@ -98,21 +98,21 @@ final class AllAccountVkRepository implements AllAccountVkInterface
                 'vk',
                 AccountVkModify::class,
                 'vk_modify',
-                'vk_modify.event = vk.event'
+                'vk_modify.event = vk.event',
             );
 
         $dbal->leftJoin(
             'vk',
             UserProfileInfo::class,
             'user_profile_info',
-            'user_profile_info.usr = vk.id'
+            'user_profile_info.usr = vk.id',
         );
 
         $dbal->leftJoin(
             'user_profile_info',
             UserProfileEvent::class,
             'user_profile_event',
-            'user_profile_info.event = user_profile_event.id'
+            'user_profile_info.event = user_profile_event.id',
         );
 
         $dbal
@@ -121,12 +121,12 @@ final class AllAccountVkRepository implements AllAccountVkInterface
                 'user_profile_event',
                 UserProfilePersonal::class,
                 'user_personal',
-                'user_personal.event = user_profile_event.id'
+                'user_personal.event = user_profile_event.id',
             );
 
 
         /* Поиск */
-        if($this->search->getQuery())
+        if($this->search instanceof SearchDTO && $this->search->getQuery())
         {
             $dbal
                 ->createSearchQueryBuilder($this->search)
