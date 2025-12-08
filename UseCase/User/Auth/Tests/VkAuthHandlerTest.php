@@ -67,6 +67,7 @@ class VkAuthHandlerTest extends KernelTestCase
             $em->remove($remove);
         }
 
+        /* Получить тестовый User и удалить */
         $User = $em->getReference(User::class, new UserUid(UserUid::TEST));
 
         if($User instanceof User)
